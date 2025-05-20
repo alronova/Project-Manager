@@ -1,2 +1,66 @@
-venv/
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+*.mo
+*.pot
+*.log
+
+# Django
+*.db
+*.sqlite3
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+local_settings.py
 .env
+.env.*
+
+# VSCode
+.vscode/
+
+# Virtual environments
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Node
+frontend/node_modules/
+frontend/build/
+frontend/.next/
+frontend/.turbo/
+frontend/.parcel-cache/
+
+# Logs
+*.log
+
+# IDEs
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# System
+.DS_Store
+Thumbs.db
+
+# Git
+*.orig
