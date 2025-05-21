@@ -4,8 +4,9 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-dbPass = os.getenv('DB_PASS')
 f_url = os.getenv('F_URL')
+dbPass = os.getenv('DB_PASS')
+host_url= os.getenv('HOST_URL')
 secretKey = os.getenv('SECRET_KEY')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,7 +22,9 @@ SECRET_KEY = secretKey
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    host_url
+]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
