@@ -46,8 +46,8 @@ class ProjectListCreate(generics.CreateAPIView):
     serializer_class = ProjectSerializer
     permission_classes = [IsAuthenticated]
 
-    # def get_queryset(self):
-    #     return Project.objects.filter(assigned_to=self.request.user.username)
+    def get_queryset(self):
+        return Project.objects.filter(assigned_to=self.request.user.username)
 
     def perform_create(self, serializer):
         if serializer.is_valid():
@@ -60,4 +60,4 @@ class ProjectDelete(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Project.objects.filter(assigned_by=self.request.user, assigned_to=self.request.user)
+        return Project.objects.filter(id=self.kwargs['pk'])

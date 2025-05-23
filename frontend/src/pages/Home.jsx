@@ -26,23 +26,12 @@ const Home = () => {
     setAssignedProjects(res.data);
   };
 
-  const deleteProject = (id) => {
-    api
-      .delete(`/api/notes/delete/${id}/`)
-      .then((res) => {
-        if (res.status === 204) alert("Note deleted!");
-        else alert("Failed to delete note.");
-        getNotes();
-      })
-      .catch((error) => alert(error));
-  };
-
   return (
     <div>
       <div className="p-6 bg-gray-100 min-h-screen">
         <h1 className="text-2xl font-bold mb-4">My Projects</h1>
         {myProjects.length > 0 ? (
-          myProjects.map((proj) => <ProjectCard key={proj.id} project={proj} />)
+          myProjects.map((proj) => <ProjectCard key={proj.id} project={proj} getMyProjects={getMyProjects} />)
         ) : (
           <p className="text-gray-500">No projects found.</p>
         )}
@@ -50,7 +39,7 @@ const Home = () => {
         <h1 className="text-2xl font-bold mt-8 mb-4">Assigned Projects</h1>
         {assignedProjects.length > 0 ? (
           assignedProjects.map((proj) => (
-            <ProjectCard key={proj.id} project={proj} />
+            <ProjectCard key={proj.id} project={proj} getAssignedProjects={getAssignedProjects}/>
           ))
         ) : (
           <p className="text-gray-500">No assigned projects found.</p>
@@ -64,8 +53,7 @@ const Home = () => {
             className="text-indigo-600 font-semibold hover:text-indigo-800 transition duration-200"
           >
             Create a New Project
-          </Link>
-          🧩
+          </Link> 🧩
         </p>
       </div>
     </div>

@@ -1,6 +1,22 @@
 import React from "react";
+import api from "../api";
 
-const ProjectCard = ({ project }) => {
+
+const ProjectCard = ({ project, getMyProjects, getAssignedProjects }) => {
+    
+  const deleteProject = (id) => {
+    api
+      .delete(`/api/projects/delete/${id}/`)
+      .then((res) => {
+        if (res.status === 204){ alert("Project deleted!");
+            getMyProjects();
+            getAssignedProjects();
+        }
+        else alert("Failed to delete the Project.");
+      })
+      .catch((error) => alert(error));
+  };
+
   return (
     <>
       <div className="bg-white shadow-md rounded-2xl p-4 my-4">
@@ -37,6 +53,14 @@ const ProjectCard = ({ project }) => {
             </div>
           ))}
         </div>
+        
+        <button
+          onClick={() => deleteProject(project.id)}
+          className="text-red-500 bg-red-100 hover:bg-red-200 px-3 py-1 rounded-full font-medium text-sm transition"
+        >
+          Delete
+        </button>
+
       </div>
     </>
   );
