@@ -46,4 +46,4 @@ class ProjectSerializer(serializers.ModelSerializer):
             'm5',
             'created_at',
         ]
-        extra_kwargs = {'assigned_by': {'read_only': True}, 'assigned_to': {'many':True, 'read_only': True}}
+        # extra_kwargs = {'assigned_by': {'read_only': True}, 'assigned_to': {'many':True, 'read_only': True}}

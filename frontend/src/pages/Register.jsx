@@ -15,8 +15,7 @@ const Register = () => {
     const navigate = useNavigate();
 
       const handleSubmit = async (e) => {
-    // setLoading(true);
-    e.preventDefault();
+      e.preventDefault();
 
     try {
       const res = await api.post("/api/user/register/", { username, fullName, email, b_of, password });
@@ -25,22 +24,22 @@ const Register = () => {
         localStorage.setItem("ACCESS_TOKEN", res.data.access);
         localStorage.setItem("REFRESH_TOKEN", res.data.refresh);
         handleSuccess("Registration Successful!");
-        // setTimeout(() => {
-        //   navigate("/");
-        // }, 1500);
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
       } else {
         localStorage.clear();
         handleError("Registration Failed!");
-        // setTimeout(() => {
-        //   navigate("/login");
-        // }, 1500);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
       }
-    } catch (error) {
+    } catch (err) {
       localStorage.clear();
-      handleError(error);
-      // setTimeout(() => {
-      //   navigate("/login");
-      // }, 1500);
+      handleError(err);
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
     }
   };
 

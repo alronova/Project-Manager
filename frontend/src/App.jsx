@@ -8,6 +8,10 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import NewProject from './pages/NewProject'
 
 function App() {
+  const Logout = () => {
+    localStorage.clear();
+    return <Navigate to="/login" />
+  }
 
   return (
       <BrowserRouter>
@@ -25,6 +29,7 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

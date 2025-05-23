@@ -71,17 +71,10 @@ class Project(models.Model):
     deadline = models.DateField()
 
     # Assigner
-    assigned_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='created_projects'
-    )
+    assigned_by = models.CharField(max_length=255, null=False, blank=False)
 
     # Assigned Users
-    assigned_to = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        related_name='assigned_projects'
-    )
+    assigned_to = models.CharField(max_length=255, null=False, blank=False)
 
     # Milestones
     m1_title = models.CharField(blank=True)

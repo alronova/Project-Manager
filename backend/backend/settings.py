@@ -8,6 +8,10 @@ f_url = os.getenv('F_URL')
 dbPass = os.getenv('DB_PASS')
 host_url= os.getenv('HOST_URL')
 secretKey = os.getenv('SECRET_KEY')
+dbHost = os.getenv('DB_HOST')
+dbUser = os.getenv('DB_USER')
+dbPort = os.getenv('DB_PORT')
+dbEngine = os.getenv('DB_ENGINE')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +27,7 @@ SECRET_KEY = secretKey
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    host_url
+    host_url,
 ]
 
 REST_FRAMEWORK = {
@@ -120,12 +124,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': dbEngine,
         'NAME': 'postgres',
-        'USER': 'postgres.hnoxnifduvshdiuilscu',
+        'USER': dbUser,
         'PASSWORD': dbPass,
-        'HOST': 'aws-0-ap-south-1.pooler.supabase.com',
-        'PORT': '6543',
+        'HOST': dbHost,
+        'PORT': dbPort,
     }
 }
 
