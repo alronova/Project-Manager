@@ -1,68 +1,75 @@
-import React from 'react'
+import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../api";
+import ProjectCard from "../components/ProjectCard";
 
 const Home = () => {
-  const [projects, setProjects] = useState([]);
-    const [content, setContent] = useState("");
-    const [title, setTitle] = useState("");
+  const [myProjects, setMyProjects] = useState([]);
+  const [assignedProjects, setAssignedProjects] = useState([]);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     getProjects();
-    // }, []);
+  useEffect(() => {
+    getMyProjects();
+    getAssignedProjects();
+  }, []);
 
-    const getProjects = () => {
-        api
-            .get("/api/projects/")
-            .then((res) => res.data)
-            .then((data) => {
-                setProjects(data);
-                console.log(data);
-            })
-            .catch((err) => alert(err));
-    };
+  const getMyProjects = async () => {
+    const res = await api.get("/api/projects/my-projects/");
+    setMyProjects(res.data);
+  };
 
-    const deleteProject = (id) => {
-        api
-            .delete(`/api/notes/delete/${id}/`)
-            .then((res) => {
-                if (res.status === 204) alert("Note deleted!");
-                else alert("Failed to delete note.");
-                getNotes();
-            })
-            .catch((error) => alert(error));
-    };
+  const getAssignedProjects = async () => {
+    const res = await api.get("/api/projects/assigned-projects/");
+    setAssignedProjects(res.data);
+  };
 
-    const createNote = (e) => {
-        e.preventDefault();
-        api
-            .post("/api/notes/", { content, title })
-            .then((res) => {
-                if (res.status === 201) alert("Note created!");
-                else alert("Failed to make note.");
-                getNotes();
-            })
-            .catch((err) => alert(err));
-    };
+  const deleteProject = (id) => {
+    api
+      .delete(`/api/notes/delete/${id}/`)
+      .then((res) => {
+        if (res.status === 204) alert("Note deleted!");
+        else alert("Failed to delete note.");
+        getNotes();
+      })
+      .catch((error) => alert(error));
+  };
+
   return (
     <div>
-      <div>
-        My Projects
+      <div className="p-6 bg-gray-100 min-h-screen">
+        <h1 className="text-2xl font-bold mb-4">My Projects</h1>
+        {myProjects.length > 0 ? (
+          myProjects.map((proj) => <ProjectCard key={proj.id} project={proj} />)
+        ) : (
+          <p className="text-gray-500">No projects found.</p>
+        )}
+
+        <h1 className="text-2xl font-bold mt-8 mb-4">Assigned Projects</h1>
+        {assignedProjects.length > 0 ? (
+          assignedProjects.map((proj) => (
+            <ProjectCard key={proj.id} project={proj} />
+          ))
+        ) : (
+          <p className="text-gray-500">No assigned projects found.</p>
+        )}
       </div>
-      <div>
-        Assigned Projects
-      </div>
-      <div>
-        Create a <Link to="/new-project"
-                    className="text-blue-500 hover:text-blue-600 transition">
-                  New Project
-                </Link>
+      <div className="mt-6 mb-5 flex items-center justify-center">
+        <p className="text-gray-700 text-lg">
+          Want to build something awesome?{" "}
+          <Link
+            to="/new-project"
+            className="text-indigo-600 font-semibold hover:text-indigo-800 transition duration-200"
+          >
+            Create a New Project
+          </Link>
+          🧩
+        </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

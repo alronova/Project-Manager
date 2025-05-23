@@ -40,7 +40,7 @@ class AssignedProjectsList(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Project.objects.filter(assigned_to=self.request.user.username).exclude(assigned_by=self.request.user.username)
+        return Project.objects.filter(assigned_to=self.request.user.username)
     
 class ProjectListCreate(generics.CreateAPIView):
     serializer_class = ProjectSerializer
@@ -48,7 +48,7 @@ class ProjectListCreate(generics.CreateAPIView):
 
     # def get_queryset(self):
     #     return Project.objects.filter(assigned_to=self.request.user.username)
-    
+
     def perform_create(self, serializer):
         if serializer.is_valid():
             serializer.save(assigned_by=self.request.user.username)
